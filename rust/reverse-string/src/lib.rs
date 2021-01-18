@@ -1,7 +1,6 @@
 pub fn reverse(input: &str) -> String {
-    let mut original = input.to_owned();
-    let mut reversed = String::with_capacity(original.len());
-    while let Some(ch) = original.pop() {
+    let mut reversed = String::new();
+    for ch in input.chars().rev() {
         reversed.push(ch);
     }
     reversed
