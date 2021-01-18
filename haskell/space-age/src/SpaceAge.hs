@@ -10,14 +10,17 @@ data Planet = Mercury
             | Neptune
 
 ageOn :: Planet -> Float -> Float
-ageOn planet seconds = seconds / orbitalPeriod planet
+ageOn planet seconds = seconds / (orbitalFrac planet * baseOrbitalSeconds)
 
-orbitalPeriod :: Planet -> Float
-orbitalPeriod Earth = 31557600
-orbitalPeriod Mercury = 0.2408467 * orbitalPeriod Earth
-orbitalPeriod Venus = 0.61519726 * orbitalPeriod Earth
-orbitalPeriod Mars = 1.8808158 * orbitalPeriod Earth
-orbitalPeriod Jupiter = 11.862615 * orbitalPeriod Earth
-orbitalPeriod Saturn = 29.447498 * orbitalPeriod Earth
-orbitalPeriod Uranus = 84.016846 * orbitalPeriod Earth
-orbitalPeriod Neptune = 164.79132 * orbitalPeriod Earth
+baseOrbitalSeconds :: Float
+baseOrbitalSeconds = 31557600
+
+orbitalFrac :: Planet -> Float
+orbitalFrac Earth = 1
+orbitalFrac Mercury = 0.2408467
+orbitalFrac Venus = 0.61519726
+orbitalFrac Mars = 1.8808158
+orbitalFrac Jupiter = 11.862615
+orbitalFrac Saturn = 29.447498
+orbitalFrac Uranus = 84.016846
+orbitalFrac Neptune = 164.79132
