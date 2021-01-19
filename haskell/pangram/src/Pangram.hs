@@ -1,12 +1,8 @@
 module Pangram (isPangram) where
 
-import Data.Char (isAlpha, toLower, isAscii)
-import Data.List (nub, sort)
+import Data.Char (toLower)
 
 isPangram :: String -> Bool
-isPangram = (== "abcdefghijklmnopqrstuvwxyz")
-            . sort
-            . nub
+isPangram = flip all "abcdefghijklmnopqrstuvwxyz"
+            . flip elem
             . map toLower
-            . filter isAscii
-            . filter isAlpha
