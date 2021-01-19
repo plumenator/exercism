@@ -14,18 +14,10 @@ impl Clock {
     }
 
     pub fn add_minutes(&self, excess_minutes: i32) -> Self {
-        let negmod = |x, l| {
-            let x = x % l;
-            if x < 0 {
-                l + x
-            } else {
-                x
-            }
-        };
+        let negmod = |x, l| x % l + if x < 0 { l } else { 0 };
         let total_minutes = negmod(self.hours * 60 + self.minutes + excess_minutes, 24 * 60);
         let hours = total_minutes / 60;
         let minutes = total_minutes - hours * 60;
-
         Self { hours, minutes }
     }
 }
