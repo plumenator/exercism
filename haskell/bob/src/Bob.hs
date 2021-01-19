@@ -6,15 +6,13 @@ import Data.Text as T
 responseFor :: Text -> Text
 responseFor prompt = T.pack response where
   response
-    | silence nospaces = "Fine. Be that way!"
-    | question nospaces = responseForQuestion
-    | yelling nospaces = "Whoa, chill out!"
+    | silence = "Fine. Be that way!"
+    | question && yelling = "Calm down, I know what I'm doing!"
+    | question = "Sure."
+    | yelling = "Whoa, chill out!"
     | otherwise = "Whatever."
-  responseForQuestion
-    | yelling nospaces = "Calm down, I know what I'm doing!"
-    | otherwise = "Sure."
-  question = (== '?') . T.last 
-  yelling = allUpper . T.filter isAlpha
-  allUpper text = not (silence text) && T.all isUpper text
-  silence = T.null
+  silence = T.null nospaces
+  question = T.last nospaces == '?'
+  yelling = allUpper (T.filter isAlpha nospaces)
+  allUpper text = not (T.null text) &&  T.all isUpper text
   nospaces = T.filter (not . isSpace) prompt
