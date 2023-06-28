@@ -1,7 +1,4 @@
 import std/strformat
 
-proc twoFer*(name = ""): string =
-  if name == "":
-    "One for you, one for me."
-  else:
+proc twoFer*(name = "you"): string =
     fmt"One for {name}, one for me."
