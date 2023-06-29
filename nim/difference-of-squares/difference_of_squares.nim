@@ -1,7 +1,7 @@
 import std/math
 
 proc squareOfSum*(n: int): int =
-  let s = (n * (n + 1)).div(2)
+  let s = n * (n + 1) div 2
   s * s
 
 proc sumOfSquares*(n: int): int =
