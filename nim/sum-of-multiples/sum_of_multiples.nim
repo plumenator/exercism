@@ -1,7 +1,8 @@
-import std/sets
+import std/[math, sets, sequtils]
 
 proc sum*(limit: int, factors: openArray[int]): int =
   var multiples: HashSet[int]
+  multiples.incl(0)
   for factor in factors:
     if factor == 0:
       break
@@ -10,7 +11,4 @@ proc sum*(limit: int, factors: openArray[int]): int =
       max -= 1
     for i in 1..max:
       multiples.incl(factor * i)
-  var total = 0
-  for multiple in multiples:
-    total += multiple
-  total
+  multiples.items.toSeq.sum
