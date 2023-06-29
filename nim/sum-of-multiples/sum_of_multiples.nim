@@ -3,9 +3,7 @@ import std/[math, sets, sequtils]
 proc sum*(limit: int, factors: openArray[int]): int =
   var multiples: HashSet[int]
   multiples.incl(0)
-  for factor in factors:
-    if factor == 0:
-      break
+  for factor in factors.filterIt(it != 0):
     var max = limit.div(factor)
     if limit.mod(factor) == 0:
       max -= 1
