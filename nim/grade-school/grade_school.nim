@@ -13,8 +13,7 @@ proc roster*(school: School): seq[string] =
   var sorted_students = school.students.sorted(proc (x, y: Student): int =
     result = cmp(x.grade, y.grade)
     if result == 0:
-      result = cmp(x.name, y.name)
-    return result)
+      result = cmp(x.name, y.name))
   sorted_students.map(proc (x: Student): string = x.name)
 
 proc addStudent*(school: var School, name: string, grade: int) =
