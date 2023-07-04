@@ -15,7 +15,7 @@ proc `$`*(c: Clock): string =
   &"{c.hour:02}:{c.minute:02}"
 
 proc `+`*(c: Clock, v: Minutes): Clock =
-  initClock(c.hour.int, c.minute.int + v.int)
+  initClock(c.hour, c.minute + v.int)
 
 proc `-`*(c: Clock, v: Minutes): Clock =
-  initClock(c.hour.int, c.minute.int - v.int)
+  initClock(c.hour, c.minute - v.int)
