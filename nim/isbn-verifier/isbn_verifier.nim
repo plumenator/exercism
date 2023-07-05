@@ -1,24 +1,27 @@
-import std/[strutils, sequtils]
+import std/[strutils, sequtils, math]
 
 proc isValid*(s: string): bool =
-  let s = s.filter(isAlphaNumeric)
-
-  if s.len != 10:
+  if s.len == 0 or not s[0].isDigit:
     return false
 
-  var sum = 0
+  var digits: seq[int]
 
-  for i, c in s[0..^2]:
+  var index = 0
+  for c in s[0..^2]:
     if c.isDigit:
-      sum += (10 - i) * (ord(c) - ord('0'))
+      echo index
+      digits.add (10 - index) * (ord(c) - ord('0'))
+      index.inc
+    elif c == '-':
+      continue
     else:
       return false
 
-  if s[^1].toUpperAscii == 'X':
-    sum += 10
-  elif s[^1].isDigit:
-    sum += ord(s[^1]) - ord('0')
+  if s[^1].isDigit:
+    digits.add ord(s[^1]) - ord('0')
+  elif s[^1].toUpperAscii == 'X':
+    digits.add 10
   else:
     return false
 
-  sum mod 11 == 0
+  digits.len == 10 and digits.sum mod 11 == 0
