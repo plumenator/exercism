@@ -8,18 +8,15 @@ proc isValid*(s: string): bool =
     return false
   s
   .reversed
-  .zip(toSeq(1..s.len))
+  .zip(@[1, 2].cycle(s.len div 2 + 1))
   .map(
     func(t: (char, int)): int =
       let (c, i) = t
       let d = ord(c) - ord('0')
-      if i mod 2 == 0:
-        let s = 2 * d
-        if s > 9:
-          s - 9
-        else:
-          s
+      let s = i * d
+      if s > 9:
+        s - 9
       else:
-        d
+        s
   )
   .sum mod 10 == 0
