@@ -1,15 +1,13 @@
 iterator primes(): int =
-  var num = 2
+  yield 2
+  yield 3
+
+  var num = 6
   while true:
-    var prime = true
-    for i in 2..<num:
-      if num mod i == 0:
-        prime = false
-        break
-    if prime:
-      yield num
-    num.inc  
-  
+    yield num - 1
+    yield num + 1
+    num += 6
+
 proc primeFactors*(n: int64): seq[int] =
   var n = n
   for prime in primes():
