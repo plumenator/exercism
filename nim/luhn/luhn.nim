@@ -1,7 +1,7 @@
 import std/[algorithm, strutils, sequtils, math]
 
 proc isValid*(s: string): bool =
-  let s = s.replace(" ").toSeq
+  let s = s.replace(" ")
   if s.len < 2:
     return false
   if s.anyIt(not isDigit(it)):
