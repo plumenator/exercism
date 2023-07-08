@@ -9,4 +9,4 @@ proc sum*(limit: int, factors: openArray[int]): int =
       max -= 1
     for i in 1..max:
       multiples.incl(factor * i)
-  multiples.items.toSeq.sum
+  multiples.toSeq.sum
