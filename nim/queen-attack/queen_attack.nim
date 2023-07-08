@@ -9,7 +9,7 @@ proc initQueen*(row, col: int): Queen =
   Queen(row: row, col: col)
 
 proc canAttack*(white, black: Queen): bool =
-  if $white == $black:
+  if white == black:
     raise newException(ValueError, "invalid")
   white.row == black.row or
   white.col == black.col or
@@ -17,7 +17,7 @@ proc canAttack*(white, black: Queen): bool =
      
 
 proc board*(white, black: Queen): string =
-  if $white == $black:
+  if white == black:
     raise newException(ValueError, "invalid")
   for row in 0..7:
     for col in 0..7:
