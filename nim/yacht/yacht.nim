@@ -8,8 +8,7 @@ proc score*(dice: array[5, int], category: Category): int =
   let counts = dice.toCountTable
   case category
   of Ones, Twos, Threes, Fours, Fives, Sixes:
-    let n = category.int + 1
-    counts[n] * n
+    counts[category.ord] * category.ord
   of FullHouse:
     if counts.len == 2 and
        counts.values.toSeq.sorted == @[2, 3]:
