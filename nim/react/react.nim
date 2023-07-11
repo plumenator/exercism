@@ -27,10 +27,11 @@ proc update(cell: Cell) =
 proc `value=`*(cell: Cell, val: int) =
   if cell.val == val:
     return
-  cell.unstable = val
   for callback in cell.callbacks:
     callback(val)
-  cell.update
+  if cell.dependencies.len == 0:
+    cell.unstable = val
+    cell.update
   for dep in cell.dependendents:
     dep.value = dep.unstable
   cell.val = cell.unstable
