@@ -1,6 +1,7 @@
 type
   LinkedList*[T] = ref object ## A doubly linked list.
     first: Node[T]
+    last: Node[T]
     count: int
 
   Node[T] = ref object ## A doubly linked list.
@@ -19,22 +20,20 @@ proc push*[T](list: var LinkedList[T], val: T) =
 
   if list.first == nil:
     list.first = node
+    list.last = node
     return
 
-  var curr = list.first
-  while curr.next != nil:
-    curr = curr.next
-  curr.next = node
-  node.prev = curr
+  if list.last != nil:
+    list.last.next = node
+  node.prev = list.last
+  list.last = node
 
 proc pop*[T](list: var LinkedList[T]): T =
   ## Removes the final node of `list` and returns its value.
-  var curr = list.first
-  while curr.next != nil:
-    curr = curr.next
-  let val = curr.val
-  if curr.prev != nil:
-    curr.prev.next = nil
+  let val = list.last.val
+  if list.last.prev != nil:
+    list.last.prev.next = nil
+  list.last = list.last.prev
   list.count.dec
   val
 
@@ -64,10 +63,15 @@ proc delete*[T](list: var LinkedList[T], val: T) =
   var curr = list.first
   while curr != nil:
     if curr.val == val:
-      if curr.prev != nil:
-        curr.prev.next = curr.next
-      if curr.next != nil:
-        curr.next.prev = curr.prev
-      list.count.dec
+      if curr == list.last:
+        discard list.pop
+      elif curr == list.first:
+        discard list.shift
+      else:
+        if curr.prev != nil:
+          curr.prev.next = curr.next
+        if curr.next != nil:
+          curr.next.prev = curr.prev
+          list.count.dec
       return
     curr = curr.next
